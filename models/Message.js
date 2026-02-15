@@ -1,4 +1,16 @@
-import { IFormatStrategy, PlainTextStrategy, MarkdownStrategy, JsonStrategy, MessageFormatter } from '../patterns/strategy.js'
+import {
+  IFormatStrategy,
+  PlainTextStrategy,
+  MarkdownStrategy,
+  JsonStrategy,
+  MessageFormatter,
+} from "../patterns/strategy.js";
+import {
+  MessageBus,
+  LoggingObserver,
+  MetricsObserver,
+  AlertObserver,
+} from "../patterns/observer.js";
 
 //Этап 1
 class Message {
@@ -98,25 +110,38 @@ console.log(processMessage(systemMessage));
 
 //Этап 2
 const msg = {
-    title: 'Стратегия',
-    content: 'Пример паттерна'
-}
+  title: "Стратегия",
+  content: "Пример паттерна",
+};
 
-const iformat = new IFormatStrategy()
-const plainText = new PlainTextStrategy()
-const markDown = new MarkdownStrategy()
-const json = new JsonStrategy()
+const iformat = new IFormatStrategy();
+const plainText = new PlainTextStrategy();
+const markDown = new MarkdownStrategy();
+const json = new JsonStrategy();
 
 //console.log(iformat.format());
 
-const formater = new MessageFormatter(plainText)
+const formater = new MessageFormatter(plainText);
 console.log(formater.generate(msg));
 
-formater.setStrategy(markDown)
+formater.setStrategy(markDown);
 console.log(formater.generate(msg));
 console.log(formater.generate(systemMessage));
 
-formater.setStrategy(json)
+formater.setStrategy(json);
 console.log(formater.generate(msg));
 
 //Этап 3
+const bus = new MessageBus();
+const logger = new LoggingObserver();
+const metrics = new MetricsObserver();
+const alert = new AlertObserver();
+
+bus.attach(logger);
+bus.attach(metrics);
+bus.attach(alert);
+
+bus.receiveMessage(textMessage);
+bus.receiveMessage(imageMessage);
+bus.receiveMessage("Проверка Alert");
+bus.receiveMessage(systemMessage);

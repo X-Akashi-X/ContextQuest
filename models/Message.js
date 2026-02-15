@@ -1,4 +1,5 @@
 import { IFormatStrategy, PlainTextStrategy, MarkdownStrategy, JsonStrategy, MessageFormatter } from '../patterns/strategy.js'
+
 //Этап 1
 class Message {
   constructor(id, createdAt, payload, type) {
@@ -106,11 +107,14 @@ const plainText = new PlainTextStrategy()
 const markDown = new MarkdownStrategy()
 const json = new JsonStrategy()
 
+//console.log(iformat.format());
+
 const formater = new MessageFormatter(plainText)
 console.log(formater.generate(msg));
 
 formater.setStrategy(markDown)
 console.log(formater.generate(msg));
+console.log(formater.generate(systemMessage));
 
 formater.setStrategy(json)
 console.log(formater.generate(msg));

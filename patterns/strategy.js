@@ -1,6 +1,8 @@
 //Интерфейс
 export class IFormatStrategy {
-    format(msg) {}
+    format(msg) {
+        throw new Error("Метод format должен быть определен в дочернем классе");
+    }
 }
 //Реализация
 export class PlainTextStrategy extends IFormatStrategy{
@@ -11,9 +13,14 @@ export class PlainTextStrategy extends IFormatStrategy{
 
 export class MarkdownStrategy extends IFormatStrategy {
     format(msg) {
-        return `${msg.title}\n${msg.content}`
+        if (!msg.severity) {
+            return `${msg.title}\n${msg.content}`;
+        }
+
+        return `Severity: ${msg.severity[0]};`
     }
 }
+
 
 export class JsonStrategy extends IFormatStrategy {
     format(msg) {

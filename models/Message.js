@@ -24,7 +24,7 @@ class Message {
   toString() {
     return `Message Id: ${this.id}, Date: ${this.createdAt}, DB: status: ${this.payload.status}, data: ${this.payload.data}, Type: ${this.type}`;
   }
-
+  
   clone() {}
 }
 
@@ -35,7 +35,7 @@ class TextMessage extends Message {
   }
 
   toString() {
-    return `Message Id: ${this.id}, Date: ${this.createdAt}, DB: status: ${this.payload.status}, data: ${this.payload.data}, Type: ${this.type}, Text: ${this.text}`;
+    return super.toString() + `, Text: ${this.text}`
   }
 }
 
@@ -48,7 +48,7 @@ class ImageMessage extends Message {
   }
 
   toString() {
-    return `Message Id: ${this.id}, Date: ${this.createdAt}, DB: status: ${this.payload.status}, data: ${this.payload.data}, Type: ${this.type}, URL: ${this.url}, W: ${this.width}, H: ${this.height}`;
+    return super.toString() + `URL: ${this.url}, W: ${this.width}, H: ${this.height}`;
   }
 }
 
@@ -59,7 +59,7 @@ class SystemMessage extends Message {
   }
 
   toString() {
-    return `Message Id: ${this.id}, Date: ${this.createdAt}, DB: status: ${this.payload.status}, data: ${this.payload.data}, Type: ${this.type}, SEV: ${this.severity}`;
+    return super.toString() + `SEV: ${this.severity}`;
   }
 }
 
@@ -145,3 +145,5 @@ bus.receiveMessage(textMessage);
 bus.receiveMessage(imageMessage);
 bus.receiveMessage("Проверка Alert");
 bus.receiveMessage(systemMessage);
+
+//Этап 4

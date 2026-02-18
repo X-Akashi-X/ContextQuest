@@ -1,11 +1,13 @@
 class IObserver {
-  update(eventName) {}
+  update(eventName) {
+    console.log('Ошибка update');
+  }
 }
 
 class IObserverable {
-  attach(obs) {}
-  detach(obs) {}
-  notify(eventName, msg) {}
+  attach(obs) {console.log('Ошибка attach')}
+  detach(obs) {console.log('Ошибка detach')}
+  notify(eventName, msg) {console.log('Ошибка update уведомления')}
 }
 
 export class MessageBus extends IObserverable {

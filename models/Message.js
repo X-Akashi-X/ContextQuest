@@ -11,6 +11,7 @@ import {
   MetricsObserver,
   AlertObserver,
 } from "../patterns/observer.js";
+import { ConfigSingleton } from "../patterns/singletons/config.js";
 
 //Этап 1
 class Message {
@@ -24,7 +25,7 @@ class Message {
   toString() {
     return `Message Id: ${this.id}, Date: ${this.createdAt}, DB: status: ${this.payload.status}, data: ${this.payload.data}, Type: ${this.type}`;
   }
-  
+
   clone() {}
 }
 
@@ -35,7 +36,7 @@ class TextMessage extends Message {
   }
 
   toString() {
-    return super.toString() + `, Text: ${this.text}`
+    return super.toString() + `, Text: ${this.text}`;
   }
 }
 
@@ -48,7 +49,9 @@ class ImageMessage extends Message {
   }
 
   toString() {
-    return super.toString() + `URL: ${this.url}, W: ${this.width}, H: ${this.height}`;
+    return (
+      super.toString() + `URL: ${this.url}, W: ${this.width}, H: ${this.height}`
+    );
   }
 }
 
@@ -64,7 +67,11 @@ class SystemMessage extends Message {
 }
 
 function processMessage(msg) {
-  if (msg instanceof TextMessage || ImageMessage || SystemMessage) {
+  if (
+    msg instanceof TextMessage ||
+    msg instanceof ImageMessage ||
+    msg instanceof SystemMessage
+  ) {
     return msg.toString();
   }
 }
@@ -108,7 +115,7 @@ console.log(processMessage(textMessage));
 console.log(processMessage(imageMessage));
 console.log(processMessage(systemMessage));
 
-//Этап 2
+//Этап 2/4
 const msg = {
   title: "Стратегия",
   content: "Пример паттерна",
@@ -118,10 +125,22 @@ const iformat = new IFormatStrategy();
 const plainText = new PlainTextStrategy();
 const markDown = new MarkdownStrategy();
 const json = new JsonStrategy();
+const config = ConfigSingleton.getInstance();
 
 //console.log(iformat.format());
 
-const formater = new MessageFormatter(plainText);
+const formater = new MessageFormatter(config);
+console.log(formater.generate(msg));
+
+config.setEnv("prod");
+config.setFeatureFlags("enableMetrics", true);
+config.setDefaultStrategyName("json");
+formater.refreshStrategy()
+console.log(formater.generate(msg));
+console.log(config.env);
+
+
+formater.setStrategy(plainText);
 console.log(formater.generate(msg));
 
 formater.setStrategy(markDown);
@@ -145,5 +164,3 @@ bus.receiveMessage(textMessage);
 bus.receiveMessage(imageMessage);
 bus.receiveMessage("Проверка Alert");
 bus.receiveMessage(systemMessage);
-
-//Этап 4

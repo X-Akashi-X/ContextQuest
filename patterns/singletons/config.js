@@ -31,12 +31,3 @@ export class ConfigSingleton {
     this.defaultStrategyName = name;
   }
 }
-
-
-
-
-//const config = ConfigSingleton.getInstance();
-//config.setEnv("prod");
-//config.setFeatureFlag("enableMetrics", true);
-//config.setDefaultStrategy("markdown");
-//console.log(config.env); // "prod" console.log(config.featureFlags); // { enableMetrics: true } console.log(config.defaultStrategyName); // "markdown"

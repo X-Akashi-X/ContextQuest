@@ -1,3 +1,5 @@
+import { ConfigSingleton } from '../patterns/singletons/config.js'
+
 //Интерфейс
 export class IFormatStrategy {
   format(msg) {

@@ -12,6 +12,7 @@ import {
   AlertObserver,
 } from "../patterns/observer.js";
 import { ConfigSingleton } from "../patterns/singletons/config.js";
+import {LoggerSingleton} from "../patterns/singletons/loger.js"
 
 //Этап 1
 class Message {
@@ -126,6 +127,7 @@ const plainText = new PlainTextStrategy();
 const markDown = new MarkdownStrategy();
 const json = new JsonStrategy();
 const config = ConfigSingleton.getInstance();
+const logger = LoggerSingleton.getInstance()
 
 //console.log(iformat.format());
 
@@ -152,11 +154,11 @@ console.log(formater.generate(msg));
 
 //Этап 3
 const bus = new MessageBus();
-const logger = new LoggingObserver();
+const logging = new LoggingObserver();
 const metrics = new MetricsObserver();
 const alert = new AlertObserver();
 
-bus.attach(logger);
+bus.attach(logging);
 bus.attach(metrics);
 bus.attach(alert);
 
@@ -164,3 +166,9 @@ bus.receiveMessage(textMessage);
 bus.receiveMessage(imageMessage);
 bus.receiveMessage("Проверка Alert");
 bus.receiveMessage(systemMessage);
+
+//Этап 4
+logger.info("System started");
+logger.warn("Low memory");
+logger.error("Unhandled exception");
+console.log(logger.getHistory());

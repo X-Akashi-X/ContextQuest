@@ -18,27 +18,19 @@ export class LoggerSingleton {
     this.logs.push(entry);
   }
 
-  info() {
+  info(msg) {
     this.log(msg, "info");
   }
 
-  warn() {
+  warn(msg) {
     this.log(msg, "warn");
   }
 
-  error() {
+  error(msg) {
     this.log(msg, "error");
   }
 
   getHistory() {
-    return [...this.history];
+    return [...this.logs];
   }
 }
-
-
-
-//const logger = LoggerSingleton.getInstance();
-//logger.info("System started");
-//logger.warn("Low memory");
-//logger.error("Unhandled exception");
-//console.log(logger.getHistory());

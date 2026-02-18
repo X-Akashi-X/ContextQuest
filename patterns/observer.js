@@ -1,13 +1,21 @@
+import { LoggerSingleton } from '../patterns/singletons/loger.js'
+
 class IObserver {
   update(eventName) {
-    console.log('Ошибка update');
+    console.log("Ошибка update");
   }
 }
 
 class IObserverable {
-  attach(obs) {console.log('Ошибка attach')}
-  detach(obs) {console.log('Ошибка detach')}
-  notify(eventName, msg) {console.log('Ошибка update уведомления')}
+  attach(obs) {
+    console.log("Ошибка attach");
+  }
+  detach(obs) {
+    console.log("Ошибка detach");
+  }
+  notify(eventName, msg) {
+    console.log("Ошибка update уведомления");
+  }
 }
 
 export class MessageBus extends IObserverable {
@@ -37,6 +45,10 @@ export class MessageBus extends IObserverable {
 }
 
 export class LoggingObserver extends IObserver {
+  constructor() {
+    super()
+    this.logger = LoggerSingleton.getInstance();
+  }
   update(eventName, msg) {
     console.log(`Log: ${eventName}, Message: ${msg}`);
   }

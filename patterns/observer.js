@@ -1,4 +1,4 @@
-import { LoggerSingleton } from '../patterns/singletons/loger.js'
+import { LoggerSingleton } from "../patterns/singletons/loger.js";
 
 class IObserver {
   update(eventName) {
@@ -46,7 +46,7 @@ export class MessageBus extends IObserverable {
 
 export class LoggingObserver extends IObserver {
   constructor() {
-    super()
+    super();
     this.logger = LoggerSingleton.getInstance();
   }
   update(eventName, msg) {

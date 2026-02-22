@@ -1,4 +1,5 @@
 import { ConfigSingleton } from '../patterns/singletons/config.js'
+import {StrategyNotFoundError} from '../utils/errors.js'
 
 //Интерфейс
 export class IFormatStrategy {
@@ -50,6 +51,9 @@ export class MessageFormatter {
   }
 
   setStrategy(strategy) {
+    if (!strategy) {
+      throw new StrategyNotFoundError(strategy?.constructor?.name);
+    }
     this.strategy = strategy;
   }
 

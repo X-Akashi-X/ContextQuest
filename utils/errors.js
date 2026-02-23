@@ -1,4 +1,4 @@
-class BaseError {
+class BaseError extends Error{
     constructor(message, details = {}) {
         super(message)
         this.details = details
@@ -18,7 +18,7 @@ export class UnsupportedMessageError extends BaseError {
     }
 }
 
-export class UnsupportedMessageError extends BaseError {
+export class StrategyNotFoundError extends BaseError {
     constructor(strategyName, details = {}) {
         super(`Strategy '${strategyName}' not found`, {strategyName, ...details})
     }

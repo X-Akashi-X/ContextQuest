@@ -1,5 +1,5 @@
 import {TextMessage, ImageMessage, SystemMessage} from '../models/message.js'
-import {UnsupportedMessageError} from '../ContextQuest/utils/errors.js'
+import {UnsupportedMessageError} from './errors.js'
 
 export class MessageHandler {
   constructor(bus, formatter) {

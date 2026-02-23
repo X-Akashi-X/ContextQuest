@@ -36,6 +36,8 @@ function validateMessage(msg) {
   if (!msg.payload || !typeof(msg.payload) === 'object') {
     throw new ValidationError("Invalid payload", { msg });
   }
+
+  return msg.toString()
 }
 
 const textMessage = new TextMessage(
@@ -137,3 +139,8 @@ const handler = new MessageHandler(bus, formater);
 console.log(handler.handle(textMessage));
 console.log(handler.handle(imageMessage));
 console.log(handler.handle(systemMessage));
+
+//Этап 7
+console.log(validateMessage(textMessage))
+console.log(validateMessage(imageMessage));
+console.log(validateMessage(systemMessage));

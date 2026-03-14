@@ -10,8 +10,6 @@ class Message {
   toString() {
     return `Message Id: ${this.id}, Date: ${this.createdAt}, DB: ${this.payload.status}, data: ${this.payload.data}, Type: ${this.type}`;
   }
-
-  clone() {}
 }
 
 export class TextMessage extends Message {

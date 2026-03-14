@@ -3,7 +3,7 @@ import {StrategyNotFoundError} from '../utils/errors.js'
 
 //Интерфейс
 export class IFormatStrategy {
-  format(msg) {
+  format() {
     throw new Error("Метод format должен быть определен в дочернем классе");
   }
 }

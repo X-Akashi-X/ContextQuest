@@ -17,7 +17,7 @@ import {
 import { ConfigSingleton } from "./patterns/singletons/config.js";
 import { LoggerSingleton } from "./patterns/singletons/loger.js";
 
-import { MessageHandler } from "./utils/MessageHandler.js";
+import { MessageHandler } from "./utils/messageHandler.js";
 import { ValidationError } from './utils/errors.js';
 
 // Этап 1
@@ -72,8 +72,6 @@ const systemMessage = new SystemMessage(
   "text",
   ["info", "warn", "error"],
 );
-
-const messages = [textMessage, imageMessage, systemMessage];
 
 console.log(processMessage(textMessage));
 console.log(processMessage(imageMessage));

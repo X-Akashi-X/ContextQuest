@@ -1,19 +1,19 @@
 import { LoggerSingleton } from "../patterns/singletons/loger.js";
 
 class IObserver {
-  update(eventName) {
+  update() {
     console.log("Ошибка update");
   }
 }
 
 class IObserverable {
-  attach(obs) {
+  attach() {
     console.log("Ошибка attach");
   }
-  detach(obs) {
+  detach() {
     console.log("Ошибка detach");
   }
-  notify(eventName, msg) {
+  notify() {
     console.log("Ошибка update уведомления");
   }
 }
@@ -64,7 +64,7 @@ export class MetricsObserver extends IObserver {
     };
   }
 
-  update(eventName, msg) {
+  update(eventName) {
     switch (eventName) {
       case "message:received":
         this.counters.received++;
@@ -81,7 +81,7 @@ export class MetricsObserver extends IObserver {
 }
 
 export class AlertObserver extends IObserver {
-  update(eventName, msg) {
+  update(msg) {
     if (!msg.severity) {
       console.log(`Все работает!`);
     } else {
